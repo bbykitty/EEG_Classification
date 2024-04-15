@@ -9,7 +9,7 @@ import mne
 import numpy as np
 import split_dataset as sp
 import global_spectral_coherence_computation as gs
-from mne.time_frequency import psd_welch
+# from mne.time_frequency import psd_welch
 
 
 def sum_welch_windows(psds,fmin,fmax,freqs):

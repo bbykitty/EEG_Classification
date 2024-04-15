@@ -4,7 +4,6 @@ Created on Thu Dec  8 11:40:50 2022
 
 @author: AndreasMiltiadous
 """
-
 import pandas as pd
 import tkinter as tk
 from tkinter import filedialog
@@ -13,11 +12,21 @@ import global_spectral_coherence_computation as gs
 import relative_band_power_computation as rb
 import split_dataset as sp
 import os
+import configparser
 
+def read_ini(file_path="config.ini"):
+    config = configparser.ConfigParser()
+    config.read(file_path)
+    preprocessed_dataset = ["paths"]["preprocessed_dataset"]
+    feature_dir = ["paths"]["feature_dir"]
+    training_dir = ["paths"]["training_dir"]
+    return preprocessed_dataset, feature_dir, training_dir
+ 
+preprocessed_dataset, feature_dir, training_dir  = read_ini("config.ini")
 
 def create_numpy_connAndband_files():
 
-    filepath=filedialog.askdirectory(title="where to save the created .npy files")
+    filepath=feature_dir
     subject_list, filenames=gs.create_subject_epoch_list()
     conn_results=[gs.calc_spectral_coherence_connectivity(subject) for subject in subject_list]
     band_results=[rb.calc_relative_band_power(subject) for subject in subject_list]
