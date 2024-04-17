@@ -43,7 +43,7 @@ def split_array_to_fixed_sized_arrays (data, splitsize=30, to_csv=False, filenam
         if filename==None:
             root = tk.Tk()
             root.withdraw()
-            filename = filedialog.askopenfilename(title="Choose .set file that was used")
+            filename = filedialog.askopenfilename(title="Choose .set file that was used")#todo
         filepath=os.path.split(filename)[0]
         name=os.path.split(filename)[1]
         plain_name=os.path.splitext(name)[0]
@@ -123,18 +123,18 @@ def split_setfile_fixed_size(filename, window=30):
         cuts.append(obj)
     return cuts
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.withdraw()
-    filename = filedialog.askopenfilenames(filetypes=[("set file","*.set")])
-    for file in filename:
-        data=mne.io.read_raw_eeglab(file,preload=True)
-        epochs=mne.make_fixed_length_epochs(data,duration=30)
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     root.withdraw()
+#     filename = filedialog.askopenfilenames(filetypes=[("set file","*.set")])#todo
+#     for file in filename:
+#         data=mne.io.read_raw_eeglab(file,preload=True)
+#         epochs=mne.make_fixed_length_epochs(data,duration=30)
         
-    for i,epoch in enumerate(epochs):
-        print(i)
+#     for i,epoch in enumerate(epochs):
+#         print(i)
     
-    info=data.info
+#     info=data.info #i commented out
 
 ##filename = filedialog.askopenfilenames(filetypes=[("set file","*.set")])    
 ##for data in filename:

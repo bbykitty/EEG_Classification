@@ -5,8 +5,6 @@ Created on Thu Dec  8 11:40:50 2022
 @author: AndreasMiltiadous
 """
 import pandas as pd
-import tkinter as tk
-from tkinter import filedialog
 import numpy as np
 import global_spectral_coherence_computation as gs
 import relative_band_power_computation as rb
@@ -20,14 +18,23 @@ def read_ini(file_path="config.ini"):
     preprocessed_dataset = ["paths"]["preprocessed_dataset"]
     feature_dir = ["paths"]["feature_dir"]
     training_dir = ["paths"]["training_dir"]
-    return preprocessed_dataset, feature_dir, training_dir
+    return preprocessed_dataset_dir, feature_dir, training_dir
  
-preprocessed_dataset, feature_dir, training_dir  = read_ini("config.ini")
+preprocessed_dataset_dir, feature_dir, training_dir  = read_ini("config.ini")
+
+def find_files(directory_path, filetype):
+    all_files = []
+    for root, dirs, files in os.walk(directory_path):
+        for file in files:
+            if file.endswith(filetype):
+                all_files.append(os.path.join(root, file))
+    return all_files
+
+preprocessed_dataset = find_files(preprocessed_dataset_dir, ".set")
 
 def create_numpy_connAndband_files():
 
-    filepath=feature_dir
-    subject_list, filenames=gs.create_subject_epoch_list()
+    subject_list, filenames=gs.create_subject_epoch_list(preprocessed_dataset,30)
     conn_results=[gs.calc_spectral_coherence_connectivity(subject) for subject in subject_list]
     band_results=[rb.calc_relative_band_power(subject) for subject in subject_list]
     for i,result in enumerate(conn_results):
@@ -68,7 +75,7 @@ def create_training_dataset(filelist=None):
 
     '''
     if filelist==None:
-        filelist=filedialog.askopenfilenames(filetypes=[("numpy file","*.npy")])
+        print("Training directory is empty!") #todo
     band_list=[]
     conn_list=[]
     training_dataframe=pd.DataFrame(columns=['subj','conn','band','class'])    

@@ -34,7 +34,7 @@ def read_data(file_path,epoch_size):
     return epochs
 
 
-def create_subject_epoch_list(preprocessed_dataset, epoch_size=2):
+def create_subject_epoch_list(preprocessed_dataset, epoch_size=30):
     """
     Parameters:
     ----------
@@ -48,11 +48,9 @@ def create_subject_epoch_list(preprocessed_dataset, epoch_size=2):
     +
     list of filenames
     """
-    # [TODO] iterate through dir and get all .set files
-    files = []
     subject_list = []
-    subject_list=[read_data(file,epoch_size) for file in files]
-    return subject_list, files
+    subject_list=[read_data(file,epoch_size) for file in preprocessed_dataset]
+    return subject_list, preprocessed_dataset
 
 def avg_diag(A):
     """
