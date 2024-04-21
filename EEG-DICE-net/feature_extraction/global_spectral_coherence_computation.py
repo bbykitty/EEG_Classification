@@ -7,8 +7,6 @@ Created on Mon Nov 21 14:36:07 2022
 ## the version of mne_connectivity used was 0.4.0
 
 import pandas as pd
-import tkinter as tk
-from tkinter import filedialog
 import mne
 import numpy as np
 from mne_connectivity import spectral_connectivity_time

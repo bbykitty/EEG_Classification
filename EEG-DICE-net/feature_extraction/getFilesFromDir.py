@@ -10,6 +10,6 @@ def find_files(directory_path, filetype):
 
 # Example usage:
 directory_path = "/s/chopin/k/grad/mbrad/cs535/EEG_Classification/derivatives"
-set_files = find_set_files(directory_path, ".set")
+set_files = find_files(directory_path, ".set")
 for set_file in set_files:
     print(set_file)

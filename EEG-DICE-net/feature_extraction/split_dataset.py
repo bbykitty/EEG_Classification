@@ -41,9 +41,8 @@ def split_array_to_fixed_sized_arrays (data, splitsize=30, to_csv=False, filenam
         
         #naming bullshit
         if filename==None:
-            root = tk.Tk()
-            root.withdraw()
-            filename = filedialog.askopenfilename(title="Choose .set file that was used")#todo
+            print("Missing file at split_array_to_fixed_sized_arrays")
+            return
         filepath=os.path.split(filename)[0]
         name=os.path.split(filename)[1]
         plain_name=os.path.splitext(name)[0]

@@ -9,8 +9,6 @@ import numpy
 import warnings
 import torch
 import sys
-import tkinter as tk
-from tkinter import filedialog
 from tqdm import tqdm
 import dataset
 import utils
@@ -156,14 +154,9 @@ def logo_run(path, logo_idx, val_idx, confusion_table,confusion_table_of_run,dir
 
 if __name__ == "__main__":
     original_stdout = sys.stdout # Save a reference to the original standard output
-    root = tk.Tk()
-    root.withdraw()
-    pklfile = filedialog.askopenfilename(filetypes=[("pkl file","*.pkl")],title="select pkl file")
+    pklfile = null#pkl file
 
-
-    root = tk.Tk()
-    root.withdraw()
-    dire = filedialog.askdirectory(title="where to save the results")
+    dir = null#where to save the results")
     dataset=dataset.mlcDataset(pklfile)
     
     percentage=1/10

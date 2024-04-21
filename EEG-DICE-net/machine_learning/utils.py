@@ -5,8 +5,6 @@ Created on Mon Mar  6 14:28:13 2023
 @author: AndreasMiltiadous
 """
 
-import tkinter as tk
-from tkinter import filedialog
 import torch
 import os
 import numpy
@@ -25,18 +23,12 @@ def reproducability(seed):
     torch.manual_seed(seed)                        # torch seed
     torch.cuda.manual_seed(seed)                   # torch cudda seed
 
-def create_pickle_fpr_tpr(fpr,tpr,filename="test"):
-    root = tk.Tk()
-    root.withdraw()
-    dire = filedialog.askdirectory(title="where to save the pickle")
-    with open(dire+"\\"+filename+'.pkl', 'wb') as f:
+def create_pickle_fpr_tpr(fpr,tpr,dir,filename="test"):
+    with open(dir+"\\"+filename+'.pkl', 'wb') as f:
         pickle.dump(fpr, f)
         pickle.dump(tpr, f)
         
     
-def create_pickle_accuracy(acc_list,filename="accuracies"):
-    root = tk.Tk()
-    root.withdraw()
-    dire = filedialog.askdirectory(title="where to save the pickle")
-    with open(dire+"\\"+filename+'.pkl', 'wb') as f:
+def create_pickle_accuracy(acc_list,dir,filename="accuracies"):
+    with open(dir+"\\"+filename+'.pkl', 'wb') as f:
         pickle.dump(acc_list, f)

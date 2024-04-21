@@ -5,11 +5,10 @@ Created on Mon Mar  6 14:31:57 2023
 @author: AndreasMiltiadous
 """
 
+import sklearn
 from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.model_selection import KFold
 import sys
-import tkinter as tk
-from tkinter import filedialog
 import warnings
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
@@ -24,6 +23,7 @@ import dataset
 import utils
 import train_eval_func as tef
 import calc_metrics as cm
+import configparser
 
 
 ################################################################################
@@ -39,16 +39,19 @@ Upon execution, you will be asked to:
 '''
 ################################################################################
 
+def read_ini(file_path="config.ini"):
+    config = configparser.ConfigParser()
+    config.read(file_path)
+    dataset_pkl = config["paths"]["dataset_pkl"]
+    results_dir = config["paths"]["results_dir"]
+    return dataset_pkl, results_dir
+
+
 if __name__ == "__main__": 
     original_stdout = sys.stdout # Save a reference to the original standard output
-    root = tk.Tk()
-    root.withdraw()
-    pklfile = filedialog.askopenfilename(filetypes=[("pkl file","*.pkl")],title="select pkl file")
 
-    root = tk.Tk()
-    root.withdraw()
-    dire = filedialog.askdirectory(title="where to save the results")
-
+    pklfile, dire = read_ini("/s/chopin/k/grad/mbrad/cs535/EEG_Classification/EEG-DICE-net/machine_learning/config.ini")
+    
     with open(pklfile, 'rb') as f:
       data = pickle.load(f)
       
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     maxAcc=0
     maxEpochs=0
     fold_accuracies=[]
-    
+
     #########################################
     #STOP HERE:
     #This for loop is for finding the best epoch size and VERY time consuming
