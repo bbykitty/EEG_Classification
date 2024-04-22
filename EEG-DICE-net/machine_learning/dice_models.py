@@ -121,9 +121,9 @@ class Model_cls(AbstractDualInput):
         input1 = input1.permute(0,3,1,2)                                                 # proper format (dimensions)
         input2 = input2.permute(0,3,1,2)
         ############################################################################
-        depthwise_conv_output1 = self.depth_conv1(input1).squeeze()                      # conv1
+        depthwise_conv_output1 = self.depth_conv1(input1).squeeze(dim=3)                      # conv1
         depthwise_conv_output1 = torch.nn.functional.gelu(depthwise_conv_output1)
-        depthwise_conv_output2 = self.depth_conv2(input2).squeeze()                      # conv2
+        depthwise_conv_output2 = self.depth_conv2(input2).squeeze(dim=3)                      # conv2
         depthwise_conv_output2 = torch.nn.functional.gelu(depthwise_conv_output2)
         concat_1_2 = torch.cat((depthwise_conv_output1, depthwise_conv_output2), dim=1)
     
@@ -182,10 +182,14 @@ class Model_cls_late_concat(AbstractDualInput):
         #fdsafgs
         input1 = input1.permute(0,3,1,2)                                                 # proper format (dimensions)
         input2 = input2.permute(0,3,1,2)
+        # print("shapes")
+        # print(input1.shape)
         ############################################################################
-        depthwise_conv_output1 = self.depth_conv1(input1).squeeze()                      # conv1
+        depthwise_conv_output1 = self.depth_conv1(input1).squeeze(dim=3)                      # conv1
         depthwise_conv_output1 = torch.nn.functional.gelu(depthwise_conv_output1)
-        depthwise_conv_output2 = self.depth_conv2(input2).squeeze()                      # conv2
+        # print("shapes")
+        # print(depthwise_conv_output1.shape)
+        depthwise_conv_output2 = self.depth_conv2(input2).squeeze(dim=3)                      # conv2
         depthwise_conv_output2 = torch.nn.functional.gelu(depthwise_conv_output2)
         
         ###permute conv1 and conv2
@@ -249,9 +253,9 @@ class Model_mean_cls_late_concat(AbstractDualInput):
         input1 = input1.permute(0,3,1,2)                                                 # proper format (dimensions)
         input2 = input2.permute(0,3,1,2)
         ############################################################################
-        depthwise_conv_output1 = self.depth_conv1(input1).squeeze()                      # conv1
+        depthwise_conv_output1 = self.depth_conv1(input1).squeeze(dim=3)                      # conv1
         depthwise_conv_output1 = torch.nn.functional.gelu(depthwise_conv_output1)
-        depthwise_conv_output2 = self.depth_conv2(input2).squeeze()                      # conv2
+        depthwise_conv_output2 = self.depth_conv2(input2).squeeze(dim=3)                      # conv2
         depthwise_conv_output2 = torch.nn.functional.gelu(depthwise_conv_output2)
         
         ###permute conv1 and conv2
@@ -323,9 +327,9 @@ class Model_all_tokens(AbstractDualInput):
         input1 = input1.permute(0,3,1,2)                                                 # proper format (dimensions)
         input2 = input2.permute(0,3,1,2)
         ############################################################################
-        depthwise_conv_output1 = self.depth_conv1(input1).squeeze()                      # conv1
+        depthwise_conv_output1 = self.depth_conv1(input1).squeeze(dim=3)                      # conv1
         depthwise_conv_output1 = torch.nn.functional.gelu(depthwise_conv_output1)
-        depthwise_conv_output2 = self.depth_conv2(input2).squeeze()                      # conv2
+        depthwise_conv_output2 = self.depth_conv2(input2).squeeze(dim=3)                      # conv2
         depthwise_conv_output2 = torch.nn.functional.gelu(depthwise_conv_output2)
         concat_1_2 = torch.cat((depthwise_conv_output1, depthwise_conv_output2), dim=1)
     

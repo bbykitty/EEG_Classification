@@ -98,7 +98,7 @@ if __name__ == "__main__":
             for fold, (train_idx,val_idx) in enumerate(logo.split(X=numpy.arange(len(dataset)),y=dataset.y,groups=dataset.subj)):
             
             #KFOLD
-            #for fold, (train_idx,val_idx) in enumerate(splits.split(numpy.arange(len(dataset)))):
+            # for fold, (train_idx,val_idx) in enumerate(splits.split(numpy.arange(len(dataset)))):
                 tqdm.write("FOLD: "+ str(fold))
 
             ###################################################################
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                 ###############################################################
                 # STOP HERE:
                 # Choose what model you want to run from dice_models.py
-                model = DICE.Model_cls_late_concat()
+                model = DICE.Model_all_tokens()
                 ###############################################################
                 model = model.to(device)
                 ############################################
@@ -134,7 +134,7 @@ if __name__ == "__main__":
                 train_sampler = torch.utils.data.SubsetRandomSampler(train_idx)
                 test_sampler = torch.utils.data.SubsetRandomSampler(val_idx)
                 train_loader = torch.utils.data.DataLoader(dataset,sampler=train_sampler, **loader_params)
-                test_loader = torch.utils.data.DataLoader(dataset, batch_size=8, sampler=test_sampler, drop_last=True)
+                test_loader = torch.utils.data.DataLoader(dataset, batch_size=8, sampler=test_sampler)
                 
                 for epoch in range(epochs):
                     train_loss, train_acc, train_f1, train_rec, train_pre = tef.train_epoch(train_loader, optimizer, model, criterion)
@@ -144,7 +144,6 @@ if __name__ == "__main__":
                     #test_loss, test_acc, test_f1, test_rec, test_pre, _ = eval_epoch(model, test_loader, criterion)
                     #print ("EPOCHS TEST: ",epochs ,"FOLD: ",fold,"epoch: ", epoch,"loss: ", test_loss,"acc: ", test_acc)
                     ##
-                
                 test_loss, test_acc, test_f1, test_rec, test_pre, conf_matrix = tef.eval_epoch(model, test_loader, criterion)
                 y_true,y_pred_prob=tef.eval_epoch_ROC(model, test_loader, criterion)
                 all_y.extend(y_true)
@@ -164,7 +163,7 @@ if __name__ == "__main__":
         
         accuracy,sensitivity,specificity,precision,f1=cm.calc_scores_from_confusionmatrix(confusion_table)
         
-        with open(dire+"/results_cls-late-concat_logo.txt", 'a') as f:
+        with open(dire+"/results_all-tokens_logo_A-C.txt", 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print ("EPOCHS USED: ", epochs)
             print('accuracy',accuracy)

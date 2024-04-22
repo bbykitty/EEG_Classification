@@ -21,17 +21,18 @@ def eval_epoch(model, dataloader, criterion):
         f1_list = []
         accuracy_list = []
         conf_matrix=numpy.array([[0, 0], [0, 0]]) 
+        print("HERE")
         for batch_index, (input1, input2, label, index) in enumerate(dataloader):
             input1 = input1.to(device)
             input2 = input2.to(device)
             label = label.to(device)
             out = model(input1, input2)
-            loss = criterion(out.squeeze(), label)
+            loss = criterion(out.squeeze(dim=1), label)
             print("PRED: ")
-            print(out.squeeze().to('cpu'))
+            print(out.squeeze(dim=1).to('cpu'))
             print("TRUE: ")
             print(label.to('cpu'))
-            recall, precision, f1, accuracy, cm = metric(out.squeeze().to('cpu'), label.to('cpu'))
+            recall, precision, f1, accuracy, cm = metric(out.squeeze(dim=1).to('cpu'), label.to('cpu'))
             print("CM: ")
             print(cm)
             conf_matrix=conf_matrix+cm
@@ -57,7 +58,7 @@ def eval_epoch_ROC(model, dataloader, criterion):
             input2 = input2.to(device)
             label = label.to(device)
             out = model(input1, input2)
-            y_true_npy,y_pred_prob_npy = metric_ROC(out.squeeze().to('cpu'), label.to('cpu'))
+            y_true_npy,y_pred_prob_npy = metric_ROC(out.squeeze(dim=1).to('cpu'), label.to('cpu'))
             y_true.extend(list(y_true_npy))
             y_pred_prob.extend(list(y_pred_prob_npy))
     return y_true,y_pred_prob

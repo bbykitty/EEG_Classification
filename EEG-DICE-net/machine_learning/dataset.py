@@ -19,7 +19,7 @@ class mlcDataset(torch.utils.data.Dataset):
             print(list(self.data["subj"]))
         #self.data = self.data[~(data['class'] == 'F')]       ## TO DO = make a parameter to choose if to drop A or F
         data=self.data
-        # self.data.drop(data[data['class']=='F'].index, inplace=True)
+        self.data.drop(data[data['class']=='F'].index, inplace=True)
         self.data.reset_index(drop=True,inplace=True)
          
         self.x1 = self.data['conn']

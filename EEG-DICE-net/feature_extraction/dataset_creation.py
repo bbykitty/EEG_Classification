@@ -124,11 +124,11 @@ def create_training_dataset(filelist):
         full_band = []
         # print("LENS: " + str(len(list_conn)) + " " + str(len(list_band)))
         for j,conn in enumerate(list_conn):
-            # full_conn.extend(conn) #for one long list 
-            # full_band.extend(list_band[j])
-            d={'subj': subj, 'conn':conn,'band':list_band[j],'class':Class}
+            full_conn.extend(conn) #for one long list 
+            full_band.extend(list_band[j])
+        d={'subj': subj, 'conn':full_conn,'band':full_band,'class':Class}
             # ser=pd.Series(data=d,index=['subj','conn','band','class'])
-            training_list.append(d)#todo
+        training_list.append(d)#todo
     training_dataframe = pd.DataFrame(training_list)
     # print(training_dataframe["subj"])
     return training_dataframe

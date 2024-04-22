@@ -4,3 +4,51 @@ f1_score nan
 sensitivity nan
 specificity nan
 precision nan
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.6125
+MAX f1_score 0.752
+MAX sensitivity 0.8703703703703703
+MAX specificity 0.07692307692307693
+MAX precision 0.6619718309859155
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.7676767676767676
+MAX f1_score 0.8391608391608391
+MAX sensitivity 0.8955223880597015
+MAX specificity 0.5
+MAX precision 0.7894736842105263
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.581081081081081
+MAX f1_score 0.6436781609195403
+MAX sensitivity 0.6666666666666666
+MAX specificity 0.46875
+MAX precision 0.6222222222222222
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 1.0
+MAX f1_score 1.0
+MAX sensitivity 1.0
+MAX specificity nan
+MAX precision 1.0
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.6268656716417911
+MAX f1_score 0.7706422018348624
+MAX sensitivity 1.0
+MAX specificity 0.0
+MAX precision 0.6268656716417911
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.6351351351351351
+MAX f1_score 0.674698795180723
+MAX sensitivity 0.6666666666666666
+MAX specificity 0.59375
+MAX precision 0.6829268292682927
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.5540540540540541
+MAX f1_score 0.56
+MAX sensitivity 0.5
+MAX specificity 0.625
+MAX precision 0.6363636363636364
+HIGHEST RESULTS for epochs:  80
+MAX accuracy 0.7432432432432432
+MAX f1_score 0.7397260273972603
+MAX sensitivity 0.6428571428571429
+MAX specificity 0.875
+MAX precision 0.8709677419354839

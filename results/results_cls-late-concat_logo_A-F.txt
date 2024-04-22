@@ -1,0 +1,6 @@
+EPOCHS USED:  80
+accuracy 0.6268656716417911
+f1_score 0.7706422018348624
+sensitivity 1.0
+specificity 0.0
+precision 0.6268656716417911
