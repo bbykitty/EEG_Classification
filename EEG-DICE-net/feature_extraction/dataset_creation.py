@@ -108,17 +108,29 @@ def create_training_dataset(filelist):
         if conn_subj!=band_subj:
             print("error in file selection")
             return
-        Class=band_subj[0]
-        subj=band_subj[1:]
+        Class="Missing" # (naming is sub-088), see https://openneuro.org/datasets/ds004504/versions/1.0.7/file-display/participants.tsv for labels
+        subj=band_subj.split("-")[-1]
+        subjInt = int(subj)
+        if subjInt < 37:
+            Class = "A"
+        elif subjInt < 66:
+            Class = "C"
+        else:
+            Class = "F"
         conn=np.load(conn_file)
         list_conn=[s for s in np.load(conn_file)]
         list_band=[s for s in np.load(band_file)]
+        full_conn = []
+        full_band = []
+        # print("LENS: " + str(len(list_conn)) + " " + str(len(list_band)))
         for j,conn in enumerate(list_conn):
-            band=list_band[j]
-            d={'subj': subj, 'conn':conn,'band':band,'class':Class}
+            # full_conn.extend(conn) #for one long list 
+            # full_band.extend(list_band[j])
+            d={'subj': subj, 'conn':conn,'band':list_band[j],'class':Class}
             # ser=pd.Series(data=d,index=['subj','conn','band','class'])
             training_list.append(d)#todo
-        training_dataframe = pd.DataFrame(training_list)
+    training_dataframe = pd.DataFrame(training_list)
+    # print(training_dataframe["subj"])
     return training_dataframe
     
 if __name__ == "__main__":

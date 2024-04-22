@@ -27,7 +27,13 @@ def eval_epoch(model, dataloader, criterion):
             label = label.to(device)
             out = model(input1, input2)
             loss = criterion(out.squeeze(), label)
+            print("PRED: ")
+            print(out.squeeze().to('cpu'))
+            print("TRUE: ")
+            print(label.to('cpu'))
             recall, precision, f1, accuracy, cm = metric(out.squeeze().to('cpu'), label.to('cpu'))
+            print("CM: ")
+            print(cm)
             conf_matrix=conf_matrix+cm
             recall_list.append(recall)
             precision_list.append(precision)

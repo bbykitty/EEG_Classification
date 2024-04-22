@@ -43,6 +43,8 @@ def calc_scores_from_confusionmatrix(conf_matrix):
     f1 : .
 
     '''
+    print("CONF MATRIX")
+    print(conf_matrix)
     accuracy=(conf_matrix[0][0]+conf_matrix[1][1])/numpy.sum(conf_matrix)
     sensitivity=conf_matrix[0][0]/(conf_matrix[0][0]+conf_matrix[0][1])
     specificity=conf_matrix[1][1]/(conf_matrix[1][1]+conf_matrix[1][0])

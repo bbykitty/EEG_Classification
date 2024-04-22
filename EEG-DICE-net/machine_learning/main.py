@@ -164,7 +164,7 @@ if __name__ == "__main__":
         
         accuracy,sensitivity,specificity,precision,f1=cm.calc_scores_from_confusionmatrix(confusion_table)
         
-        with open(dire+"/results_no_encoder_AD_kfold.txt", 'a') as f:
+        with open(dire+"/results_cls-late-concat_logo.txt", 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print ("EPOCHS USED: ", epochs)
             print('accuracy',accuracy)

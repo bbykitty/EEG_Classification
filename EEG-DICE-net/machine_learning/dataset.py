@@ -7,6 +7,7 @@ Created on Mon Mar  6 12:22:38 2023
 
 import torch
 import pickle
+import numpy as np
 
 class mlcDataset(torch.utils.data.Dataset):
     def __init__(self,path,transform=None):
@@ -14,9 +15,11 @@ class mlcDataset(torch.utils.data.Dataset):
         self.data=None
         with open(path, 'rb') as f:
             self.data = pickle.load(f)
+            print("TYPE: ")
+            print(list(self.data["subj"]))
         #self.data = self.data[~(data['class'] == 'F')]       ## TO DO = make a parameter to choose if to drop A or F
         data=self.data
-        self.data.drop(data[data['class']=='F'].index, inplace=True)
+        # self.data.drop(data[data['class']=='F'].index, inplace=True)
         self.data.reset_index(drop=True,inplace=True)
          
         self.x1 = self.data['conn']
@@ -34,9 +37,9 @@ class mlcDataset(torch.utils.data.Dataset):
 ################################################################################
     ''' Get the next item of the dataset '''
     def __getitem__(self,index):
-        input1 = torch.tensor(self.x1[index]).type(torch.FloatTensor)
-        input2 = torch.tensor(self.x2[index]).type(torch.FloatTensor)
-        label = torch.tensor(int(self.y[index])).type(torch.FloatTensor)
+        input1 = torch.tensor(np.array(self.x1[index])).type(torch.FloatTensor)
+        input2 = torch.tensor(np.array(self.x2[index])).type(torch.FloatTensor)
+        label = torch.tensor(np.array(int(self.y[index]))).type(torch.FloatTensor)
         return input1, input2, label, index
 
 class lpgo_dataset(mlcDataset):
