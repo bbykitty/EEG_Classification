@@ -1,0 +1,6 @@
+EPOCHS USED:  80
+accuracy nan
+f1_score nan
+sensitivity nan
+specificity nan
+precision nan
