@@ -68,7 +68,7 @@ if __name__ == "__main__":
     #STOP HERE:
     #This for loop is for finding the best epoch size and VERY time consuming
     #If you want to run it for specific epoch number, for example 90 just make a 1-time loop etc. range(90,95,10)
-    for epochs in tqdm(range(80,85,10)):
+    for epochs in tqdm(range(800,805,10)):
     #########################################
     
     
