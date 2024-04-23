@@ -12,7 +12,9 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, r
 
 def metric(pred, true):
     y_pred_class = numpy.array((torch.sigmoid(pred)>0.5).type(torch.float).tolist())
+    # print(f"Y_PRED_CLASS = {y_pred_class}")
     y_true = numpy.array(true.tolist())
+    # print(f"Y_TRUE_CLASS = {y_true}")
     cm = confusion_matrix(y_true, y_pred_class,labels=[1,0])
     recall = recall_score(y_true, y_pred_class, zero_division=0)
     precision = precision_score(y_true, y_pred_class, zero_division=0)

@@ -107,7 +107,7 @@ if __name__ == "__main__":
                 ###############################################################
                 # STOP HERE:
                 # Choose what model you want to run from dice_models.py
-                model = DICE.Model_all_tokens()
+                model = DICE.Model_DICE_replica()
                 ###############################################################
                 model = model.to(device)
                 ############################################
@@ -135,12 +135,13 @@ if __name__ == "__main__":
                 test_sampler = torch.utils.data.SubsetRandomSampler(val_idx)
                 train_loader = torch.utils.data.DataLoader(dataset,sampler=train_sampler, **loader_params)
                 test_loader = torch.utils.data.DataLoader(dataset, batch_size=8, sampler=test_sampler)
+                # test_loader = torch.utils.data.DataLoader(dataset, sampler=test_sampler, **loader_params)
                 
                 for epoch in range(epochs):
                     train_loss, train_acc, train_f1, train_rec, train_pre = tef.train_epoch(train_loader, optimizer, model, criterion)
                     
                     ## 
-                    #print("train loss: ", train_loss, "train_acc: ",train_acc)
+                    # print("train loss: ", train_loss, "train_acc: ",train_acc)
                     #test_loss, test_acc, test_f1, test_rec, test_pre, _ = eval_epoch(model, test_loader, criterion)
                     #print ("EPOCHS TEST: ",epochs ,"FOLD: ",fold,"epoch: ", epoch,"loss: ", test_loss,"acc: ", test_acc)
                     ##
@@ -163,7 +164,7 @@ if __name__ == "__main__":
         
         accuracy,sensitivity,specificity,precision,f1=cm.calc_scores_from_confusionmatrix(confusion_table)
         
-        with open(dire+"/results_all-tokens_logo_A-C.txt", 'a') as f:
+        with open(dire+"/results_DICE-replica_A-C.txt", 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print ("EPOCHS USED: ", epochs)
             print('accuracy',accuracy)
