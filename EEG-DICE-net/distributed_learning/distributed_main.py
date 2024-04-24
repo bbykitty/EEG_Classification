@@ -27,10 +27,10 @@ def read_ini(file_path="config.ini"):
     dataset_pkl = config["paths"]["dataset_pkl"]
     results_dir = config["paths"]["results_dir"]
     master_node = config["distributed"]["master"]
-    port_num = config["distrubted"]["port"]
+    port_num = config["distributed"]["port"]
     model = config["model"]["model"]
     epochs = config["model"]["epochs"]
-    return dataset_pkl, results_dir, master_node, port_num
+    return dataset_pkl, results_dir, master_node, port_num, model, epochs
 
 pklfile, dire, master_node, port_num, model, epochs = read_ini("/s/chopin/k/grad/mbrad/cs535/EEG_Classification/EEG-DICE-net/distributed_learning/config.ini")
 
