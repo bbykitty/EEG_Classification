@@ -68,7 +68,7 @@ if __name__ == "__main__":
     #STOP HERE:
     #This for loop is for finding the best epoch size and VERY time consuming
     #If you want to run it for specific epoch number, for example 90 just make a 1-time loop etc. range(90,95,10)
-    for epochs in tqdm(range(800,805,10)):
+    for epochs in tqdm(range(200,205,10)):
     #########################################
     
     
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                 ###############################################################
                 # STOP HERE:
                 # Choose what model you want to run from dice_models.py
-                model = DICE.Model_DICE_replica()
+                model = DICE.Model_DICE_No_CNN()
                 ###############################################################
                 model = model.to(device)
                 ############################################
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         
         accuracy,sensitivity,specificity,precision,f1=cm.calc_scores_from_confusionmatrix(confusion_table)
         
-        with open(dire+"/results_DICE-replica_A-C.txt", 'a') as f:
+        with open(dire+"/results_DICE-no-cnn_A-C.txt", 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print ("EPOCHS USED: ", epochs)
             print('accuracy',accuracy)
