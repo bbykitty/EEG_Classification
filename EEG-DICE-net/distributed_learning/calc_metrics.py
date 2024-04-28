@@ -56,7 +56,7 @@ def calc_scores_from_confusionmatrix(conf_matrix):
 
 def get_weights(model):
     ##import dice_models ???needed ?
-    conv1=model.depth_conv1.weight.detach().cpu().numpy()
-    conv2=model.depth_conv2.weight.detach().cpu().numpy()
+    conv1=model.module.depth_conv1.weight.detach().cpu().numpy()
+    conv2=model.module.depth_conv2.weight.detach().cpu().numpy()
     return conv1,conv2
 

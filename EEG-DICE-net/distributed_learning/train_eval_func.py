@@ -7,6 +7,7 @@ Created on Mon Mar  6 12:40:17 2023
 
 import numpy
 import torch
+import random
 from calc_metrics import metric, metric_ROC
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -64,7 +65,7 @@ def eval_epoch_ROC(model, dataloader, criterion):
     return y_true,y_pred_prob
 ####################################
 
-def train_epoch(dataloader, optimizer, model, criterion):
+def train_epoch(dataloader, optimizer, model, criterion, masking):
   model.train()            # train mode
   losses = []
   recall_list = []
@@ -73,6 +74,11 @@ def train_epoch(dataloader, optimizer, model, criterion):
   accuracy_list = []
   for batch_index, (input1, input2, label, index) in enumerate(dataloader):
       optimizer.zero_grad()
+      if(masking):
+        for sample in range(input1.shape[0]):
+            randSecond = random.randint(0,input1.shape[1]-1)
+            input1[sample,randSecond,:,:] = 0
+            input2[sample,randSecond,:,:] = 0
       input1 = input1.to(device)
       input2 = input2.to(device)
       label = label.to(device)

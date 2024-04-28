@@ -77,6 +77,7 @@ def train_epoch(dataloader, optimizer, model, criterion):
       input2 = input2.to(device)
       label = label.to(device)
       out = model(input1, input2)
+      print(out)
       loss = criterion(out.squeeze(), label)
       recall, precision, f1, accuracy, _ = metric(out.squeeze().to('cpu'), label.to('cpu'))
       recall_list.append(recall)

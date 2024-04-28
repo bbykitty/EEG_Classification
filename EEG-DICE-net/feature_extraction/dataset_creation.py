@@ -16,13 +16,10 @@ def read_ini(file_path="config.ini"):
     config = configparser.ConfigParser()
     config.read(file_path)
     preprocessed_dataset_dir = config["paths"]["preprocessed_dataset_dir"]
-    feature_dir = config["paths"]["feature_dir"]
-    training_dir = config["paths"]["training_dir"]
-    validation_dir = config["paths"]["validation_dir"]
-    testing_dir = config["paths"]["testing_dir"]
-    return preprocessed_dataset_dir, feature_dir, training_dir, validation_dir, testing_dir
+    training_file = config["paths"]["training_file"]
+    return preprocessed_dataset_dir, training_file
 
-preprocessed_dataset_dir, feature_dir, training_dir, validation_dir, testing_dir = read_ini("/s/chopin/k/grad/mbrad/cs535/EEG_Classification/EEG-DICE-net/feature_extraction/config.ini")
+preprocessed_dataset_dir, training_file = read_ini("/s/chopin/k/grad/mbrad/cs535/EEG_Classification/EEG-DICE-net/feature_extraction/config.ini")
 
 def find_files(directory_path, filetype):
     all_files = []
@@ -66,20 +63,6 @@ def create_numpy_connAndband_files(filelist=None):
             np.save(f, arr_band)
         
 def create_training_dataset(filelist):
-    '''
-    Gets (or asks the user for) a list of .npy files that MUST be named as A4_band.npy and A4_conn.npy (S0S: ordered alphabetically)
-    returns training_dataframe with columns [subj, conn (numpy array), band (numpy array), class]
-
-    Parameters
-    ----------
-    filelist : TYPE, list of filenames
-        DESCRIPTION. The default is None.
-
-    Returns
-    -------
-    training_dataframe : dataframe, each row is one training sample.
-
-    '''
     if len(filelist)==0:
         print("Training directory is empty!")
         return
@@ -122,33 +105,23 @@ def create_training_dataset(filelist):
         list_band=[s for s in np.load(band_file)]
         full_conn = []
         full_band = []
-        # print("LENS: " + str(len(list_conn)) + " " + str(len(list_band)))
         for j,conn in enumerate(list_conn):
             full_conn.extend(conn) #for one long list 
             full_band.extend(list_band[j])
         d={'subj': subj, 'conn':full_conn,'band':full_band,'class':Class}
-            # ser=pd.Series(data=d,index=['subj','conn','band','class'])
-        training_list.append(d)#todo
+        training_list.append(d)
     training_dataframe = pd.DataFrame(training_list)
-    # print(training_dataframe["subj"])
     return training_dataframe
     
 if __name__ == "__main__":
     print(preprocessed_dataset_dir)
     preprocessed_dataset = find_files(preprocessed_dataset_dir, ".set")
-    # preprocessed_dataset.sort()
-    # for set_file in preprocessed_dataset:
-    #     print(set_file)
-    # preprocessed_sample = preprocessed_dataset[0:3]
-    # create_numpy_connAndband_files(preprocessed_dataset)
+    preprocessed_dataset.sort()
+    for set_file in preprocessed_dataset:
+        print(set_file)
+    create_numpy_connAndband_files(preprocessed_dataset)
     created_nmpy_files = find_files(preprocessed_dataset_dir, ".npy")
     for nmpy_name in created_nmpy_files:
         print(nmpy_name)
     training_dataframe = create_training_dataset(created_nmpy_files)
-    training_dataframe.to_pickle(training_dir+'/TrainingDataset.pkl')
-    # #validation
-    # validation_dataframe = all_dataframes[1]
-    # validation_dataframe.to_pickle(validation_dir+'/ValidationDataset.pkl')
-    # #testing
-    # testing_dataframe = all_dataframes[2]
-    # testing_dataframe.to_pickle(testing_dir+'/TestingDataset.pkl')
+    training_dataframe.to_pickle(training_file)
