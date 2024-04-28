@@ -132,13 +132,15 @@ def train(gpu, args, pklfile, dire, use_model, epochs):
 
 if __name__ == "__main__": 
     
-    pklfile, dire, master_node, port_num, model, epochs = read_ini("/s/chopin/k/grad/mbrad/cs535/EEG_Classification/EEG-DICE-net/distributed_learning/config.ini")
+    pklfile, dire, master_node, port_num, model, epochs = read_ini("/s/chopin/k/grad/mbrad/cs535/project/EEG_Classification/EEG-DICE-net/distributed_learning/config.ini")
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--nodes', default=1,
                         type=int, metavar='N')
     parser.add_argument('-nr', '--nr', default=0, type=int,
                         help='ranking within the nodes')
+    parser.add_argument('-g', '--gpus', default=1, type=int,
+                        help='number of gpus per node')
     args = parser.parse_args()
     print(f'initializing ddp: GLOBAL_RANK: {args.nr}, MEMBER: {int(args.nr)+1} / {args.nodes}')
     #########################################################

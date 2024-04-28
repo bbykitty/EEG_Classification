@@ -101,8 +101,8 @@ class Model_DICE_No_CNN(AbstractDualInput):
         self.positional_encoding2 = Summer(PositionalEncoding1D(19))
 
         #CLS TOKEN
-        self.class_token1 = torch.nn.Parameter(torch.randn(1, 26, 1))
-        self.class_token2 = torch.nn.Parameter(torch.randn(1, 26, 1))
+        self.class_token1 = torch.nn.Parameter(torch.randn(1, 150, 1))
+        self.class_token2 = torch.nn.Parameter(torch.randn(1, 150, 1))
 
         #Transformer Enconder
         encoder_layer1 = torch.nn.TransformerEncoderLayer(d_model=20, nhead=2)
@@ -112,9 +112,9 @@ class Model_DICE_No_CNN(AbstractDualInput):
 
         #Feed Forward NN
         self.n_hidden=24
-        self.layernorm = torch.nn.LayerNorm(normalized_shape=52)
+        self.layernorm = torch.nn.LayerNorm(normalized_shape=300)
         self.dropout1 = torch.nn.Dropout(.2)
-        self.output = torch.nn.Linear(in_features=52, out_features=self.n_hidden)
+        self.output = torch.nn.Linear(in_features=300, out_features=self.n_hidden)
         self.batchnorm1=torch.nn.BatchNorm1d(self.n_hidden)
         self.dropout2=torch.nn.Dropout(.2)
         self.output2=torch.nn.Linear(in_features=self.n_hidden,out_features=1)
